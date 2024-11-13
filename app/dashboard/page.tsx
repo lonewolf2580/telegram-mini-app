@@ -1,22 +1,26 @@
 "use client";
 
 import { useState, useEffect } from 'react';
+import WebApp from '@twa-dev/sdk'; // Import Telegram Web App SDK
 
-async function fetchBalanceData() {
-  const response = await fetch('/api/getBalance');
+// Fetch balance data for a specific user
+async function fetchBalanceData(userId: string) {
+  const response = await fetch(`/api/getBalance?userId=${userId}`);
   return response.json();
 }
 
-async function updateBalance(amount: number) {
+// Update balance for a specific user
+async function updateBalance(userId: string, amount: number) {
   const response = await fetch('/api/addBalance', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ amount }),
+    body: JSON.stringify({ userId, amount }),
   });
   return response.json();
 }
 
 export default function Dashboard() {
+  const [userId, setUserId] = useState<string | null>(null); // Store user ID
   const [balance, setBalance] = useState(0);
   const [tapLimit, setTapLimit] = useState(10);
   const [profitPerTap, setProfitPerTap] = useState(1);
@@ -26,12 +30,21 @@ export default function Dashboard() {
     { id: 3, description: "Increase tap limit by 5", cost: 8, reward: "increaseLimit" },
   ]);
 
+  // Fetch and set user ID from Telegram WebApp data
+  useEffect(() => {
+    if (WebApp.initDataUnsafe.user) {
+      setUserId(WebApp.initDataUnsafe.user.id); // Set the Telegram user ID
+    }
+  }, []);
+
   useEffect(() => {
     async function initializeData() {
-      const data = await fetchBalanceData();
-      setBalance(data.balance);
-      setTapLimit(data.tapLimit);
-      setProfitPerTap(data.profitPerTap);
+      if (userId) {
+        const data = await fetchBalanceData(userId);
+        setBalance(data.balance);
+        setTapLimit(data.tapLimit);
+        setProfitPerTap(data.profitPerTap);
+      }
     }
     initializeData();
 
@@ -41,11 +54,11 @@ export default function Dashboard() {
     }, 5000); // Increase tap limit by 1 every 5 seconds
 
     return () => clearInterval(rechargeInterval);
-  }, []);
+  }, [userId]);
 
   const handleTap = async () => {
-    if (tapLimit > 0) {
-      const result = await updateBalance(profitPerTap);
+    if (tapLimit > 0 && userId) {
+      const result = await updateBalance(userId, profitPerTap);
       setBalance(result.balance);
       setTapLimit(result.tapLimit);
     }
@@ -61,6 +74,8 @@ export default function Dashboard() {
       alert("Not enough balance!");
     }
   };
+
+  if (!userId) return <div>Loading...</div>; // Display loading until user ID is retrieved
 
   return (
     <div style={{ textAlign: "center", padding: "20px" }}>
