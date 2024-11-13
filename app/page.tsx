@@ -3,6 +3,7 @@
 import WebApp from '@twa-dev/sdk'
 import { useEffect, useState } from 'react'
 
+// Define the interface for user data
 interface UserData {
   id: number;
   first_name: string;
@@ -22,24 +23,26 @@ export default function Home() {
   }, [])
 
   return (
-    <main className="p-6 bg-gray-100 min-h-screen flex flex-col items-center justify-center">
+    <main className="flex flex-col items-center p-6 bg-gray-100 min-h-screen">
       {userData ? (
-        <div className="bg-white shadow-md rounded-lg p-6 w-full max-w-md text-center">
-          <h1 className="text-3xl font-semibold text-blue-600 mb-6">User Details</h1>
-          <ul className="text-gray-700 mb-6">
-            <li className="mb-2"><strong>ID:</strong> {userData.id}</li>
-            <li className="mb-2"><strong>First Name:</strong> {userData.first_name}</li>
-            <li className="mb-2"><strong>Last Name:</strong> {userData.last_name || 'N/A'}</li>
-            <li className="mb-2"><strong>Username:</strong> {userData.username || 'N/A'}</li>
-            <li className="mb-2"><strong>Language Code:</strong> {userData.language_code}</li>
-            <li className="mb-2"><strong>Is Premium:</strong> {userData.is_premium ? 'Yes' : 'No'}</li>
+        <div className="bg-white shadow-md rounded-lg p-6 w-full max-w-md">
+          <h1 className="text-3xl font-bold text-center text-blue-500 mb-6">
+            User Data
+          </h1>
+          <ul className="list-none space-y-4 text-gray-700">
+            <li><strong>ID:</strong> {userData.id}</li>
+            <li><strong>First Name:</strong> {userData.first_name}</li>
+            <li><strong>Last Name:</strong> {userData.last_name || 'N/A'}</li>
+            <li><strong>Username:</strong> {userData.username || 'N/A'}</li>
+            <li><strong>Language Code:</strong> {userData.language_code}</li>
+            <li><strong>Is Premium:</strong> {userData.is_premium ? 'Yes' : 'No'}</li>
           </ul>
-          <button className="w-full bg-blue-500 text-white font-bold py-2 px-4 rounded-full hover:bg-blue-600 transition">
-            Play
-          </button>
+          <div className="flex justify-center mt-8">
+            <button className="btn btn-primary">Play</button>
+          </div>
         </div>
       ) : (
-        <div>Loading...</div>
+        <div className="text-center text-gray-500">Loading...</div>
       )}
     </main>
   )
