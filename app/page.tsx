@@ -56,7 +56,7 @@ export default function Home() {
               </tr>
             </tbody>
           </table>
-          <a href="#" className="play-button">Play</a>
+          <a href="/dashboard" className="play-button">Play</a>
         </div>
       ) : (
         <div className="text-center text-gray-500">Loading...</div>
