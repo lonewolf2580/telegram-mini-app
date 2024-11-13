@@ -6,8 +6,8 @@ import Script from "next/script";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: 'Telegram Mini App',
-  description: 'A simple Telegram Mini App using Next.js 14'
+  title: 'FortuneTap',
+  description: 'Reward for Gameplay. We aim to make Gaming more profitable than it already is through a Token backed by top Gaming Companies including EA, Unity, Unreal Engine, Xbox, Sega.'
 };
 
 export default function RootLayout({

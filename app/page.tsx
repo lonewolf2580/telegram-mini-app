@@ -3,7 +3,6 @@
 import WebApp from '@twa-dev/sdk'
 import { useEffect, useState } from 'react'
 
-// Define the interface for user data
 interface UserData {
   id: number;
   first_name: string;
@@ -23,19 +22,22 @@ export default function Home() {
   }, [])
 
   return (
-    <main className="p-4">
+    <main className="p-6 bg-gray-100 min-h-screen flex flex-col items-center justify-center">
       {userData ? (
-        <>
-          <h1 className="text-2xl font-bold mb-4">User Data</h1>
-          <ul>
-            <li>ID: {userData.id}</li>
-            <li>First Name: {userData.first_name}</li>
-            <li>Last Name: {userData.last_name || 'N/A'}</li>
-            <li>Username: {userData.username || 'N/A'}</li>
-            <li>Language Code: {userData.language_code}</li>
-            <li>Is Premium: {userData.is_premium ? 'Yes' : 'No'}</li>
+        <div className="bg-white shadow-md rounded-lg p-6 w-full max-w-md text-center">
+          <h1 className="text-3xl font-semibold text-blue-600 mb-6">User Details</h1>
+          <ul className="text-gray-700 mb-6">
+            <li className="mb-2"><strong>ID:</strong> {userData.id}</li>
+            <li className="mb-2"><strong>First Name:</strong> {userData.first_name}</li>
+            <li className="mb-2"><strong>Last Name:</strong> {userData.last_name || 'N/A'}</li>
+            <li className="mb-2"><strong>Username:</strong> {userData.username || 'N/A'}</li>
+            <li className="mb-2"><strong>Language Code:</strong> {userData.language_code}</li>
+            <li className="mb-2"><strong>Is Premium:</strong> {userData.is_premium ? 'Yes' : 'No'}</li>
           </ul>
-        </>
+          <button className="w-full bg-blue-500 text-white font-bold py-2 px-4 rounded-full hover:bg-blue-600 transition">
+            Play
+          </button>
+        </div>
       ) : (
         <div>Loading...</div>
       )}
