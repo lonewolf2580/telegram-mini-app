@@ -1,3 +1,4 @@
+'use client'
 // In /dashboard page or tap game component
 import { useEffect, useState } from 'react';
 
