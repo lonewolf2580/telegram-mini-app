@@ -23,42 +23,44 @@ export default function Home() {
   }, [])
 
   return (
-    <main className="flex flex-col items-center p-6 bg-gray-100 min-h-screen">
+    <main className="flex flex-col items-center p-6 bg-gradient-to-r from-blue-50 via-purple-50 to-pink-50 min-h-screen">
       {userData ? (
-        <div className="bg-white shadow-md rounded-lg p-6 w-full max-w-md">
-          <h1 className="text-3xl font-bold text-center text-blue-500 mb-6">
-            User Data
+        <div className="bg-white shadow-lg rounded-lg p-8 w-full max-w-md mx-auto border border-gray-200">
+          <h1 className="text-3xl font-extrabold text-center text-blue-600 mb-6">
+            User Details
           </h1>
-          <table className="table w-full border-separate border-spacing-2">
+          <table className="table w-full border-collapse border border-gray-300 rounded-lg mb-8">
             <tbody>
-              <tr>
-                <td className="font-semibold">ID</td>
-                <td>{userData.id}</td>
+              <tr className="border-b border-gray-200">
+                <td className="font-semibold p-3 text-gray-600">ID</td>
+                <td className="p-3 text-gray-800">{userData.id}</td>
+              </tr>
+              <tr className="border-b border-gray-200">
+                <td className="font-semibold p-3 text-gray-600">First Name</td>
+                <td className="p-3 text-gray-800">{userData.first_name}</td>
+              </tr>
+              <tr className="border-b border-gray-200">
+                <td className="font-semibold p-3 text-gray-600">Last Name</td>
+                <td className="p-3 text-gray-800">{userData.last_name || 'N/A'}</td>
+              </tr>
+              <tr className="border-b border-gray-200">
+                <td className="font-semibold p-3 text-gray-600">Username</td>
+                <td className="p-3 text-gray-800">{userData.username || 'N/A'}</td>
+              </tr>
+              <tr className="border-b border-gray-200">
+                <td className="font-semibold p-3 text-gray-600">Language Code</td>
+                <td className="p-3 text-gray-800">{userData.language_code}</td>
               </tr>
               <tr>
-                <td className="font-semibold">First Name</td>
-                <td>{userData.first_name}</td>
-              </tr>
-              <tr>
-                <td className="font-semibold">Last Name</td>
-                <td>{userData.last_name || 'N/A'}</td>
-              </tr>
-              <tr>
-                <td className="font-semibold">Username</td>
-                <td>{userData.username || 'N/A'}</td>
-              </tr>
-              <tr>
-                <td className="font-semibold">Language Code</td>
-                <td>{userData.language_code}</td>
-              </tr>
-              <tr>
-                <td className="font-semibold">Is Premium</td>
-                <td>{userData.is_premium ? 'Yes' : 'No'}</td>
+                <td className="font-semibold p-3 text-gray-600">Is Premium</td>
+                <td className="p-3 text-gray-800">{userData.is_premium ? 'Yes' : 'No'}</td>
               </tr>
             </tbody>
           </table>
-          <div className="flex justify-center mt-8">
-            <button className="btn btn-primary">Play</button>
+          <div className="flex justify-center">
+            <button className="btn btn-primary font-bold text-white bg-gradient-to-r from-purple-600 to-blue-600 px-6 py-2 rounded-lg shadow-md hover:shadow-lg transition-transform transform hover:scale-105">
+              Play
+            </button>
           </div>
         </div>
       ) : (
