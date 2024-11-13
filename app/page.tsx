@@ -2,7 +2,7 @@
 
 import WebApp from '@twa-dev/sdk'
 import { useEffect, useState } from 'react'
-import './styles.css'
+import './style.css'
 
 // Define the interface for user data
 interface UserData {
