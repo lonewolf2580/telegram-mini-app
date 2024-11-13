@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@tonconnect/sdk": "^3.0.5",
     "@twa-dev/sdk": "^7.0.0",
     "daisyui": "^4.12.14",
     "ioredis": "^5.4.1",
