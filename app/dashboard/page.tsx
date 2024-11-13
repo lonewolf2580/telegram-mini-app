@@ -33,7 +33,7 @@ export default function Dashboard() {
   // Fetch and set user ID from Telegram WebApp data
   useEffect(() => {
     if (WebApp.initDataUnsafe.user) {
-      setUserId(WebApp.initDataUnsafe.user.id); // Set the Telegram user ID
+      setUserId(WebApp.initDataUnsafe.user.id.toString()); // Set the Telegram user ID
     }
   }, []);
 
