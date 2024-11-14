@@ -10,15 +10,15 @@ import { collection, doc, getDoc, setDoc } from "firebase/firestore";
 async function initializeUserData(userId: any, username: any) {
   const usersRef = collection(db, "user");
 
-  await setDoc(doc(usersRef, userId), {
-      userId: userId,
-      username: username,
-      balance: 0,
-      level: 0,
-      tasks: [],
-      skins: [],
-      airdrop: 0
-  });
+  setDoc(doc(usersRef, userId), {
+    userId: userId,
+    username: username,
+    balance: 0,
+    level: 0,
+    tasks: [],
+    skins: [],
+    airdrop: 0
+  }).then(a => window.alert(a));
 }
 
 async function checkIfUserExist(userId:any, username:any){
