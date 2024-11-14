@@ -4,25 +4,34 @@ import WebApp from '@twa-dev/sdk'
 import { useEffect, useState } from 'react'
 import './style.css'
 import { onValue, ref, set } from "firebase/database";
-import { database } from "../lib/firebase";
+import { db } from "../lib/firebase";
+import { collection, doc, getDoc, setDoc } from "firebase/firestore";
 
-function initializeUserData(userId: any, username: any) {
-  // const db = getDatabase();
-  set(ref(database, 'users/' + userId), {
-    username: username,
-    balance: 0,
-    level: 0,
-    tasks: [],
+async function initializeUserData(userId: any, username: any) {
+  const usersRef = collection(db, "user");
+
+  await setDoc(doc(usersRef, userId), {
+      userId: userId,
+      username: username,
+      balance: 0,
+      level: 0,
+      tasks: [],
+      skins: [],
+      airdrop: 0
   });
 }
 
-function checkIfUserExist(userId:any, username:any){
-  const starCountRef = ref(database, 'users/' + userId);
-  onValue(starCountRef, (snapshot: { val: () => any; }) => {
-    if (snapshot.val() == null) {
-      initializeUserData(userId, username);
-    }
-  });
+async function checkIfUserExist(userId:any, username:any){
+  const docRef = doc(db, "user", userId);
+  const docSnap = await getDoc(docRef);
+
+  if (docSnap.exists()) {
+    console.log("Document data:", docSnap.data());
+  } else {
+    // docSnap.data() will be undefined in this case
+    console.log("No such document!");
+    initializeUserData(userId, username);
+  }
 }
 
 // Define the interface for user data

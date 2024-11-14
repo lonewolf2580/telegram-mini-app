@@ -3,16 +3,19 @@
 import { useState, useEffect } from 'react';
 import WebApp from '@twa-dev/sdk'; // Import Telegram Web App SDK
 import { ref, set } from "firebase/database";
-import { database } from "../../lib/firebase";
+import { db } from "../../lib/firebase";
+import { doc, getDoc } from 'firebase/firestore';
 
 // Fetch balance data for a specific user
-async function fetchBalanceData(userId: string) {
-  const response = await fetch(`/api/getBalance?userId=${userId}`);
-  return response.json();
+async function fetchFUserData(userId: any) {
+  const docRef = doc(db, "user", userId);
+  const docSnap = await getDoc(docRef);
+  var data = docSnap.data()
+  return data
 }
 
 // Update balance for a specific user
-async function updateBalance(userId: string, amount: number) {
+async function updateBalance(userId: any, amount: number) {
   const response = await fetch('/api/addBalance', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -21,7 +24,19 @@ async function updateBalance(userId: string, amount: number) {
   return response.json();
 }
 
+// Define the interface for Firebase user data
+interface FUserData {
+  userId: any,
+  username: any,
+  balance: number,
+  level: number,
+  tasks: any,
+  skins: any,
+  airdrop: number //balance divide by 1000
+}
+
 export default function Dashboard() {
+  const [fuserData, setFUserData] = useState<FUserData | null>(null)
   const [userId, setUserId] = useState<string | null>(null); // Store user ID
   const [balance, setBalance] = useState(0);
   const [tapLimit, setTapLimit] = useState(10);
@@ -36,16 +51,20 @@ export default function Dashboard() {
   useEffect(() => {
     if (WebApp.initDataUnsafe.user) {
       setUserId(WebApp.initDataUnsafe.user.id.toString()); // Set the Telegram user ID
+      var data = fetchFUserData(WebApp.initDataUnsafe.user.id)
     }
   }, []);
 
   useEffect(() => {
     async function initializeData() {
       if (userId) {
-        const data = await fetchBalanceData(userId);
-        setBalance(data.balance);
-        setTapLimit(data.tapLimit);
-        setProfitPerTap(data.profitPerTap);
+        // const data = await fetchFUserData(userId);
+        const data = fetchFUserData(userId)
+        window.alert(data)
+        // setFUserData(data)
+        // setBalance(data.balance);
+        // setTapLimit(data.tapLimit);
+        // setProfitPerTap(data.profitPerTap);
       }
     }
     initializeData();
