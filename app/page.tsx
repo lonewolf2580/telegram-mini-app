@@ -1,40 +1,36 @@
-"use client";
+'use client'
 
-import WebApp from '@twa-dev/sdk';
-import { useEffect, useState } from 'react';
-import './style.css';
-import { collection, doc, getDoc, setDoc } from "firebase/firestore";
+import WebApp from '@twa-dev/sdk'
+import { useEffect, useState } from 'react'
+import './style.css'
+import { onValue, ref, set } from "firebase/database";
 import { db } from "../lib/firebase";
+import { collection, doc, getDoc, setDoc } from "firebase/firestore";
 
-// Initialize user data in Firebase
 async function initializeUserData(userId: any, username: any) {
-  const usersRef = collection(db, "user");
-  try {
-    await setDoc(doc(usersRef, userId), {
-      userId: userId,
-      username: username,
-      balance: 0,
-      level: 0,
-      tasks: [],
-      skins: [],
-      airdrop: 0
-    });
-    console.log(`User data initialized for user: ${username}`);
-  } catch (error) {
-    console.error("Error initializing user data:", error);
-  }
+  const usersRef = collection(db, "user/"+userId);
+
+  setDoc(doc(usersRef, userId), {
+    userId: userId,
+    username: username,
+    balance: 0,
+    level: 0,
+    tasks: [],
+    skins: [],
+    airdrop: 0
+  }).then(a => window.alert(""));
 }
 
-// Check if user exists in Firebase
-async function checkIfUserExist(userId: any, username: any) {
+async function checkIfUserExist(userId:any, username:any){
   const docRef = doc(db, "user", userId);
   const docSnap = await getDoc(docRef);
 
   if (docSnap.exists()) {
-    console.log("User already exists:", docSnap.data());
+    console.log("Document data:", docSnap.data());
   } else {
-    console.log("No such user. Initializing new user data.");
-    await initializeUserData(userId, username);
+    // docSnap.data() will be undefined in this case
+    console.log("No such document!");
+    initializeUserData(userId, username);
   }
 }
 
@@ -49,21 +45,14 @@ interface UserData {
 }
 
 export default function Home() {
-  const [userData, setUserData] = useState<UserData | null>(null);
+  const [userData, setUserData] = useState<UserData | null>(null)
 
   useEffect(() => {
-    async function fetchData() {
-      if (WebApp.initDataUnsafe.user) {
-        const user = WebApp.initDataUnsafe.user as UserData;
-        setUserData(user);
-
-        // Wait until userData is set before checking if user exists
-        await checkIfUserExist(user.id.toString(), user.username);
-      }
+    if (WebApp.initDataUnsafe.user) {
+      setUserData(WebApp.initDataUnsafe.user as UserData)
+      checkIfUserExist(userData?.id, userData?.username)
     }
-    
-    fetchData();
-  }, []);
+  }, [])
 
   return (
     <main className="main-container">
@@ -104,5 +93,5 @@ export default function Home() {
         <div className="text-center text-gray-500">Loading...</div>
       )}
     </main>
-  );
+  )
 }

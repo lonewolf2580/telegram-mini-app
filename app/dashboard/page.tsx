@@ -1,91 +1,95 @@
 "use client";
 
 import { useState, useEffect } from 'react';
-import WebApp from '@twa-dev/sdk';
+import WebApp from '@twa-dev/sdk'; // Import Telegram Web App SDK
+import { getDatabase, onValue, ref, set } from "firebase/database";
+import { db } from "../../lib/firebase";
 import { doc, getDoc } from 'firebase/firestore';
-import { db } from "../../lib/firebase"; // Import Firebase
 
-// Interface for Firebase user data
+// Fetch balance data for a specific user
+async function fetchFUserData(userId: any) {
+  // const docRef = doc(db, "user", userId);
+  // const docSnap = await getDoc(docRef);
+  // var data = docSnap.data()
+  // return data
+
+  const db = getDatabase();
+  const starCountRef = ref(db, 'user/' + userId);
+  onValue(starCountRef, (snapshot) => {
+    const data = snapshot.val();
+    return data
+  });
+}
+
+// Update balance for a specific user
+async function updateBalance(userId: any, amount: number) {
+  const response = await fetch('/api/addBalance', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ userId, amount }),
+  });
+  
+  return response.json();
+}
+
+// Define the interface for Firebase user data
 interface FUserData {
-  userId: string;
-  username: string;
-  balance: number;
-  level: number;
-  profitPerTap: number;
-  tapLimit: number;
-  tasks: any;
-  skins: any;
-  airdrop: number;
+  userId: any,
+  username: any,
+  balance: number,
+  level: number,
+  tasks: any,
+  skins: any,
+  airdrop: number //balance divide by 1000
 }
 
-// Fetch user data from Firebase and calculate profit per tap and tap limit based on level
-async function fetchFUserData(userId: string): Promise<FUserData | null> {
-  const docRef = doc(db, "user", userId);
-  const docSnap = await getDoc(docRef);
-
-  if (docSnap.exists()) {
-    const data = docSnap.data();
-    const level = data.level || 0;
-
-    // Determine profit per tap and tap limit based on level
-    const profitPerTap = level < 50 ? level + 1 : 50;
-    const tapLimit = level < 50 ? 1000 + level * 50 : 3500; // Adjust these values as needed
-
-    return {
-      ...data,
-      profitPerTap,
-      tapLimit,
-      airdrop: data.balance / 1000,
-    } as FUserData;
-  } else {
-    console.log("No such document!");
-    return null;
-  }
-}
-
-// Main Dashboard component
 export default function Dashboard() {
-  const [fuserData, setFUserData] = useState<FUserData | null>(null);
+  const [fuserData, setFUserData] = useState<FUserData | null>(null)
+  const [userId, setUserId] = useState<string | null>(null); // Store user ID
   const [balance, setBalance] = useState(0);
-  const [tapLimit, setTapLimit] = useState(0);
-  const [profitPerTap, setProfitPerTap] = useState(0);
+  const [tapLimit, setTapLimit] = useState(10);
+  const [profitPerTap, setProfitPerTap] = useState(1);
   const [tasks, setTasks] = useState([
     { id: 1, description: "Double your balance", cost: 5, reward: "double" },
     { id: 2, description: "Increase profit per tap by 1", cost: 10, reward: "increaseProfit" },
     { id: 3, description: "Increase tap limit by 5", cost: 8, reward: "increaseLimit" },
   ]);
 
+  // Fetch and set user ID from Telegram WebApp data
   useEffect(() => {
-    // Fetch user data from Telegram WebApp and Firebase
+    if (WebApp.initDataUnsafe.user) {
+      setUserId(WebApp.initDataUnsafe.user.id.toString()); // Set the Telegram user ID
+      var data = fetchFUserData(WebApp.initDataUnsafe.user.id)
+    }
+  }, []);
+
+  useEffect(() => {
     async function initializeData() {
-      const userId = WebApp.initDataUnsafe?.user?.id?.toString();
       if (userId) {
-        const data = await fetchFUserData(userId);
-        if (data) {
-          setFUserData(data);
-          setBalance(data.balance);
-          setTapLimit(data.tapLimit);
-          setProfitPerTap(data.profitPerTap);
-        }
+        // const data = await fetchFUserData(userId);
+        const data = fetchFUserData(userId)
+        window.alert(data)
+        // setFUserData(data)
+        // setBalance(data.balance);
+        // setTapLimit(data.tapLimit);
+        // setProfitPerTap(data.profitPerTap);
       }
     }
     initializeData();
 
-    // Recharge tap limit over time
+    // Recharge the tap limit over time
     const rechargeInterval = setInterval(() => {
-      setTapLimit((prev) => Math.min(prev + 1, fuserData?.tapLimit || 1000));
-    }, 5000); // Recharges every 5 seconds
+      setTapLimit((prev) => Math.min(prev + 1, 10));
+    }, 5000); // Increase tap limit by 1 every 5 seconds
 
     return () => clearInterval(rechargeInterval);
-  }, []);
+  }, [userId]);
 
   const handleTap = async () => {
-    if (tapLimit > 0) {
-      const newBalance = balance + profitPerTap;
-      setBalance(newBalance);
-      setTapLimit(tapLimit - 1);
-
-      // Optionally, save the new balance back to Firebase or a server API here
+    if (tapLimit > 0 && userId) {
+      const result = await updateBalance(userId, profitPerTap);
+      setBalance(result.balance);
+      setTapLimit(result.tapLimit);
     }
   };
 
@@ -100,7 +104,7 @@ export default function Dashboard() {
     }
   };
 
-  if (!fuserData) return <div>Loading...</div>;
+  if (!userId) return <div>Loading...</div>; // Display loading until user ID is retrieved
 
   return (
     <div style={{ textAlign: "center", padding: "20px" }}>
