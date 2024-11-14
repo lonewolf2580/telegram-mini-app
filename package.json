@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@firebasegen/default-connector": "link:dataconnect-generated\\js\\default-connector",
     "@tonconnect/sdk": "^3.0.5",
     "@twa-dev/sdk": "^7.0.0",
     "daisyui": "^4.12.14",
