@@ -14,16 +14,16 @@ export default function Dashboard() {
 
   return (
     <main className={styles.container}>
-      <h1 className={styles.title}>FortuneTap Dashboard</h1>
+      <h1 className={styles.title}>Dashboard</h1>
 
       <div className={styles.balanceDisplay}>
         <span className={styles.balanceLabel}>Balance:</span>
-        <span className={styles.balanceValue}>{balance} FortuneTap</span>
+        <span className={styles.balanceValue}>{balance}</span>
       </div>
 
       <div className={styles.tapCircle} onClick={handleTap}>
         <img
-          src="/circle-image.png"
+          src="/fortune.jpg"
           alt="Tap Circle"
           className={styles.circleImage}
         />
