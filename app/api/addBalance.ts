@@ -4,7 +4,7 @@ import redis from '../../lib/redis';
 
 interface BalanceRequest extends NextApiRequest {
   body: {
-    userId: number;
+    userId: string;
     amount: number; // Amount to add to balance
   };
 }
