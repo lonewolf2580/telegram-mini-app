@@ -20,4 +20,6 @@ const redis = createClient({
     }
 });
 
+redis.connect();
+
 export default redis;

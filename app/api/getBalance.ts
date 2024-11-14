@@ -7,7 +7,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const userId = parseInt(req.query.userId as string);
 
     try {
-      await redis.connect();
       const balance = await redis.get(`balance:${userId}`);
       res.status(200).json({ userId, balance: balance ? parseInt(balance) : 0 });
     } catch (error) {

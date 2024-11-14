@@ -15,7 +15,6 @@ export default async function handler(req: BalanceRequest, res: NextApiResponse)
 
     try {
       // Fetch the current balance, default to 0 if not found
-      await redis.connect();
       const currentBalance = await redis.get(`balance:${userId}`);
       const newBalance = (currentBalance ? parseInt(currentBalance) : 0) + amount;
 
