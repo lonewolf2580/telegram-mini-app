@@ -1,0 +1,19 @@
+.menu {
+    display: flex;
+    justify-content: space-around;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    padding: 10px;
+    background-color: #f7fafc;
+    border-top: 1px solid #e2e8f0;
+  }
+  
+  .menuItem {
+    text-decoration: none;
+    color: #5a67d8;
+    font-size: 1.25em;
+    padding: 5px;
+    transition: color 0.2s ease;
+  }
+  
