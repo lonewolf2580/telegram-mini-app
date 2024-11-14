@@ -3,6 +3,27 @@
 import WebApp from '@twa-dev/sdk'
 import { useEffect, useState } from 'react'
 import './style.css'
+import { onValue, ref, set } from "firebase/database";
+import { database } from "../lib/firebase";
+
+function initializeUserData(userId: any, username: any) {
+  // const db = getDatabase();
+  set(ref(database, 'users/' + userId), {
+    username: username,
+    balance: 0,
+    level: 0,
+    tasks: [],
+  });
+}
+
+function checkIfUserExist(userId:any, username:any){
+  const starCountRef = ref(database, 'users/' + userId);
+  onValue(starCountRef, (snapshot: { val: () => any; }) => {
+    if (snapshot.val() == null) {
+      initializeUserData(userId, username);
+    }
+  });
+}
 
 // Define the interface for user data
 interface UserData {
@@ -20,6 +41,7 @@ export default function Home() {
   useEffect(() => {
     if (WebApp.initDataUnsafe.user) {
       setUserData(WebApp.initDataUnsafe.user as UserData)
+      checkIfUserExist(userData?.id, userData?.username)
     }
   }, [])
 

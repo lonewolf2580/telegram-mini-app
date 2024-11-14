@@ -2,6 +2,18 @@
 
 import { useState, useEffect } from 'react';
 import WebApp from '@twa-dev/sdk'; // Import Telegram Web App SDK
+import { ref, set } from "firebase/database";
+import { database } from "../../lib/firebase";
+
+function writeUserData(userId: any, name: any, email: any, imageUrl: any) {
+  // const db = getDatabase();
+  set(ref(database, 'users/' + userId), {
+    username: name,
+    email: email,
+    profile_picture : imageUrl
+  });
+}
+
 
 // Fetch balance data for a specific user
 async function fetchBalanceData(userId: string) {

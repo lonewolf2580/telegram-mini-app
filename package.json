@@ -12,6 +12,7 @@
     "@tonconnect/sdk": "^3.0.5",
     "@twa-dev/sdk": "^7.0.0",
     "daisyui": "^4.12.14",
+    "firebase": "^11.0.1",
     "ioredis": "^5.4.1",
     "next": "14.2.5",
     "react": "^18",
