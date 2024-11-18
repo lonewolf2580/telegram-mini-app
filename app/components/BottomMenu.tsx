@@ -7,7 +7,7 @@ export default function BottomMenu() {
       <Link href="/dashboard" className="menu-item">🏠 Dashboard</Link>
       <Link href="/tasks" className="menu-item">📋 Tasks</Link>
       <Link href="/referrals" className="menu-item">👥 Referrals</Link>
-      <Link href="/settings" className="menu-item">⚙️ Settings</Link>
+      {/* <Link href="/settings" className="menu-item">⚙️ Settings</Link> */}
     </nav>
   );
 }
