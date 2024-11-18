@@ -1,0 +1,77 @@
+.tasksPage {
+    padding: 20px;
+    padding-bottom: 70px; /* Prevent overlap with BottomMenu */
+    background-color: #f9f9f9;
+    min-height: 100vh;
+    text-align: center;
+  }
+  
+  .title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  .taskList {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .taskItem {
+    background-color: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: left;
+  }
+  
+  .taskHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+  
+  .taskDescription {
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+  }
+  
+  .taskCost {
+    font-size: 16px;
+    font-weight: bold;
+    color: #0070f3;
+  }
+  
+  .taskReward {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 10px;
+  }
+  
+  .completeButton {
+    display: inline-block;
+    background-color: #0070f3;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 8px 16px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+  }
+  
+  .completeButton:hover {
+    background-color: #005bb5;
+  }
+  
+  .completeButton:active {
+    background-color: #003f7f;
+  }
+  

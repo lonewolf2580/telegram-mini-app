@@ -1,0 +1,79 @@
+.referralsPage {
+    padding: 20px;
+    padding-bottom: 70px; /* Prevent overlap with BottomMenu */
+    background-color: #f9f9f9;
+    min-height: 100vh;
+    text-align: center;
+  }
+  
+  .title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+  }
+  
+  .subtitle {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 20px;
+  }
+  
+  .referralList {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .referralItem {
+    background-color: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .referralDetails {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
+  
+  .referralName {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .referralReward {
+    font-size: 16px;
+    font-weight: bold;
+    color: #0070f3;
+  }
+  
+  .inviteButton {
+    display: inline-block;
+    background-color: #0070f3;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+    margin-top: 20px;
+  }
+  
+  .inviteButton:hover {
+    background-color: #005bb5;
+  }
+  
+  .inviteButton:active {
+    background-color: #003f7f;
+  }
+  
