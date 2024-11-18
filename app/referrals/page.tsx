@@ -15,7 +15,7 @@ export default function Referrals() {
     <div className={styles.referralsPage}>
       <h1 className={styles.title}>👥 Referrals</h1>
       <p className={styles.subtitle}>
-        Invite friends and earn rewards! Here's a list of your referred friends and their rewards.
+        Invite friends and earn rewards! Below is a list of your referred friends and their rewards.
       </p>
       <ul className={styles.referralList}>
         {dummyReferrals.map((referral) => (
