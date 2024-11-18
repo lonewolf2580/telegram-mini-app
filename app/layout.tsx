@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import Script from "next/script";
-import { TonConnectButton, TonConnectUIProvider } from '@tonconnect/ui-react'
+import { TonConnectUIProvider } from '@tonconnect/ui-react'
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -23,7 +23,6 @@ export default function RootLayout({
       </head>
       <body className={inter.className}>
       <TonConnectUIProvider manifestUrl="https://telegram-mini-app-sooty-iota.vercel.app/tonconnect-manifest.json">
-      <TonConnectButton className="my-button-class" style={{ float: "right" }}/>
         {children}
       </TonConnectUIProvider>
       </body>

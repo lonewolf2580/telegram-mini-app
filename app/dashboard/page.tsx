@@ -3,7 +3,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import BottomMenu from '../components/BottomMenu';
 import styles from './Dashboard.module.css';
-import { useTonAddress, useTonWallet } from '@tonconnect/ui-react'
+import { TonConnectButton, useTonAddress, useTonWallet } from '@tonconnect/ui-react'
 
 export default function Dashboard() {
   const [balance, setBalance] = useState(0);
@@ -16,6 +16,7 @@ export default function Dashboard() {
 
   return (
     <main className={styles.container}>
+      <TonConnectButton className="my-button-class" style={{ float: "right" }}/>
       <h1 className={styles.title}>Dashboard</h1>
 
       wallet && (
