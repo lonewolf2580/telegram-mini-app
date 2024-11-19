@@ -71,7 +71,7 @@
   
   .meterContainer {
     position: relative;
-    width: 80%;
+    width: 100%;
     height: 20px;
     background-color: #f2f2f2;
     border-radius: 10px;
