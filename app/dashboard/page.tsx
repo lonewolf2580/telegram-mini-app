@@ -21,6 +21,15 @@ export default function Dashboard() {
     <div className={styles.container}>
       <h1 className={styles.title}>🏠 Dashboard</h1>
 
+      {/* Tap Circle */}
+      <div className={styles.tapCircle} onClick={handleTap}>
+        <img
+          src="/fortune.jpg"
+          alt="Tap Circle"
+          className={styles.tapImage}
+        />
+      </div>
+
       {/* Tap Limit Meter */}
       <div className={styles.meterSection}>
         <div className={styles.meterContainer}>
@@ -32,14 +41,7 @@ export default function Dashboard() {
         <span className={styles.meterText}>{`${tapLimit}/${maxTapLimit}`}</span>
       </div>
 
-      {/* Tap Circle */}
-      <div className={styles.tapCircle} onClick={handleTap}>
-        <img
-          src="/fortune.jpg"
-          alt="Tap Circle"
-          className={styles.tapImage}
-        />
-      </div>
+      
 
       <BottomMenu />
     </div>
