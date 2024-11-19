@@ -1,16 +1,18 @@
 'use client';
-
 import { useState } from 'react';
+import Link from 'next/link';
 import BottomMenu from '../components/BottomMenu';
 import styles from './Dashboard.module.css';
 
 export default function Dashboard() {
+  const [balance, setBalance] = useState(0);
   const [tapLimit, setTapLimit] = useState(1000); // Initial tap limit
   const maxTapLimit = 1000; // Maximum tap limit
   const profitPerTap = 1; // Profit per tap increment
 
   const handleTap = () => {
     if (tapLimit > 0) {
+      setBalance(prevBalance => prevBalance + profitPerTap);
       setTapLimit((prev) => prev - profitPerTap); // Reduce tap limit on tap
     } else {
       alert('No taps remaining! Please wait for recharge.');
@@ -18,18 +20,23 @@ export default function Dashboard() {
   };
 
   return (
-    <div className={styles.container}>
-      <h1 className={styles.title}>🏠 Dashboard</h1>
+    <main className={styles.container}>
+      <h1 className={styles.title}>Dashboard</h1>
 
-      {/* Tap Circle */}
+      <div className={styles.balanceDisplay}>
+        <span className={styles.balanceLabel}>Balance:</span>
+        <span className={styles.balanceValue}>{balance}</span>
+      </div>
+
       <div className={styles.tapCircle} onClick={handleTap}>
         <img
           src="/fortune.jpg"
           alt="Tap Circle"
-          className={styles.tapImage}
+          className={styles.circleImage}
         />
+        <p className={styles.tapInstruction}>Tap to Earn!</p>
       </div>
-
+      
       {/* Tap Limit Meter */}
       <div className={styles.meterSection}>
         <div className={styles.meterContainer}>
@@ -41,9 +48,8 @@ export default function Dashboard() {
         <span className={styles.meterText}>{`${tapLimit}/${maxTapLimit}`}</span>
       </div>
 
-      
-
+      {/* Bottom Menu */}
       <BottomMenu />
-    </div>
+    </main>
   );
 }
