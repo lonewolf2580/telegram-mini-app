@@ -9,19 +9,11 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@firebasegen/default-connector": "link:dataconnect-generated\\js\\default-connector",
-    "@ton/ton": "^15.1.0",
-    "@tonconnect/sdk": "^3.0.5",
-    "@tonconnect/ui-react": "^2.0.9",
     "@twa-dev/sdk": "^7.0.0",
     "daisyui": "^4.12.14",
-    "firebase": "^11.0.1",
-    "ioredis": "^5.4.1",
     "next": "14.2.5",
     "react": "^18",
-    "react-dom": "^18",
-    "redis": "^4.7.0",
-    "ton": "^13.9.0"
+    "react-dom": "^18"
   },
   "devDependencies": {
     "@types/node": "^20",
