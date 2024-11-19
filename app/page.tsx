@@ -3,36 +3,37 @@
 import WebApp from '@twa-dev/sdk'
 import { useEffect, useState } from 'react'
 import './style.css'
-import { onValue, ref, set } from "firebase/database";
+// import { onValue, ref, set } from "firebase/database";
 import { db } from "../lib/firebase";
-import { collection, doc, getDoc, setDoc } from "firebase/firestore";
+// import { collection, doc, getDoc, setDoc } from "firebase/firestore";
 
-async function initializeUserData(userId: any, username: any) {
-  const usersRef = collection(db, "user/"+userId);
+// async function initializeUserData(userId: any, username: any) {
+//   const usersRef = collection(db, "user/"+userId);
 
-  setDoc(doc(usersRef, userId), {
-    userId: userId,
-    username: username,
-    balance: 0,
-    level: 0,
-    tasks: [],
-    skins: [],
-    airdrop: 0
-  }).then(a => window.alert(""));
-}
+//   setDoc(doc(usersRef, userId), {
+//     userId: userId,
+//     username: username,
+//     balance: 0,
+//     level: 0,
+//     tasks: [],
+//     skins: [],
+//     airdrop: 0
+//   }).then(a => window.alert(""));
+// }
 
-async function checkIfUserExist(userId:any, username:any){
-  const docRef = doc(db, "user", userId);
-  const docSnap = await getDoc(docRef);
+// async function checkIfUserExist(userId:any, username:any){
+//   const docRef = doc(db, "user", userId);
+//   const docSnap = await getDoc(docRef);
 
-  if (docSnap.exists()) {
-    console.log("Document data:", docSnap.data());
-  } else {
-    // docSnap.data() will be undefined in this case
-    console.log("No such document!");
-    initializeUserData(userId, username);
-  }
-}
+//   if (docSnap.exists()) {
+//     console.log("Document data:", docSnap.data());
+//   } else {
+//     console.log("No such document!");
+//     initializeUserData(userId, username);
+//   }
+// }
+// docSnap.data() will be undefined in this case
+    
 
 // Define the interface for user data
 interface UserData {
@@ -50,7 +51,7 @@ export default function Home() {
   useEffect(() => {
     if (WebApp.initDataUnsafe.user) {
       setUserData(WebApp.initDataUnsafe.user as UserData)
-      checkIfUserExist(userData?.id, userData?.username)
+      // checkIfUserExist(userData?.id, userData?.username)
     }
   }, [])
 

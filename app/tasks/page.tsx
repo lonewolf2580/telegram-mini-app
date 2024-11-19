@@ -1,23 +1,23 @@
 'use client';
 import BottomMenu from '../components/BottomMenu';
 import styles from './Tasks.module.css';
-import { SendTransactionRequest, useTonConnectUI, } from '@tonconnect/ui-react'
+// import { SendTransactionRequest, useTonConnectUI, } from '@tonconnect/ui-react'
 
-const destination = "UQDL480evEKX7PtGVD0xyVUdEdyg0c8XtRBR9jbIOp-3vx45"
-const body = "TON Task on Our Airdrop App"
-const transaction: SendTransactionRequest = {
-    validUntil: Date.now() + 5 * 60 * 1000, // 5 minutes
-    messages: [
-      {
-        address:
-          "UQDL480evEKX7PtGVD0xyVUdEdyg0c8XtRBR9jbIOp-3vx45", // message destination in user-friendly format
-        amount: "20000000", // Toncoin in nanotons
-      },
-    ],
-};
+// const destination = "UQDL480evEKX7PtGVD0xyVUdEdyg0c8XtRBR9jbIOp-3vx45"
+// const body = "TON Task on Our Airdrop App"
+// const transaction: SendTransactionRequest = {
+//     validUntil: Date.now() + 5 * 60 * 1000, // 5 minutes
+//     messages: [
+//       {
+//         address:
+//           "UQDL480evEKX7PtGVD0xyVUdEdyg0c8XtRBR9jbIOp-3vx45", // message destination in user-friendly format
+//         amount: "20000000", // Toncoin in nanotons
+//       },
+//     ],
+// };
 
 export default function Tasks() {
-    const [tonConnectUI, setOptions] = useTonConnectUI();
+    // const [tonConnectUI, setOptions] = useTonConnectUI();
   const dummyTasks = [
     { id: 1, description: 'Double your balance', cost: '5 TON', reward: 'Double your current balance.' },
     { id: 2, description: 'Increase profit per tap by 1', cost: '10 TON', reward: 'Boost profit per tap by 1.' },
@@ -37,7 +37,7 @@ export default function Tasks() {
               <span className={styles.taskCost}>{task.cost}</span>
             </div>
             <p className={styles.taskReward}>{task.reward}</p>
-            <button onClick={() => tonConnectUI.sendTransaction(transaction)} className={styles.completeButton}>Complete</button>
+            <button className={styles.completeButton}>Complete</button>
           </li>
         ))}
       </ul>
